@@ -1,0 +1,30 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  team1     Json?
+  team2     Json?
+}
+
+model Player {
+  id             String                     @id @default(cuid())
+  createdAt      DateTime                   @default(now())
+  updatedAt      DateTime                   @updatedAt
+  username       String?
+  mmr            Int?
+  preferredRoles EnumPlayerPreferredRoles[]
+  queueTime      DateTime?
+}
+
+enum EnumPlayerPreferredRoles {
+  Option1
+}
